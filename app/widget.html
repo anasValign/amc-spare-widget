@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Title STARTS HERE... -->
+    <title>Quotes</title>
+    <!-- Title ENDS HERE... -->
+
+    <!-- JQuery CDN STARTS HERE... -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- JQuery CDN ENDS HERE... -->
+
+    <!-- Bootstrap CDN STARTS HERE... -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Bootstrap CDN ENDS HERE... -->
+
+    <!-- Custom Style Sheet STARTS HERE... -->
+    <link rel="stylesheet" href="./src/css/global.css" />
+    <!-- Custom Style Sheet ENDS HERE... -->
+
+    <!-- Select2 Local STARTS HERE... -->
+    <link rel="stylesheet" href="./src/css/select2.css" />
+    <link rel="stylesheet" href="./src/css/select2.min.css" />
+    <!-- Select2 Local ENDS HERE... -->
+
+    <!-- Zoho CRM SDK CDN STARTS HERE... -->
+    <script src="https://live.zwidgets.com/js-sdk/1.0.6/ZohoEmbededAppSDK.min.js"></script>
+    <!-- Zoho CRM SDK CDN End here... -->
+  </head>
+  <body class="">
+    <!-- Main Loader Div STARTS HERE... -->
+    <div class="container-fluid" id="loaderDiv">
+      <div class="loader"></div>
+    </div>
+    <!-- Main Loader Div ENDS HERE... -->
+
+    <!-- Heading start for widget -->
+    <!-- <h2 class="text-center">Quotes Form</h2> -->
+    <!-- Heading end for widget -->
+
+    <div class="container-fluid p-4" id="body">
+      <div class="container-fluid" id="formModal">
+        <!-- Quotes form start -->
+        <form
+          id="quotesForm"
+          class="d-flex flex-column gap-3"
+          onsubmit="onFormSubmit(event)"
+        >
+          <!-- Form Field Start -->
+          <div class="form-group row" id="type_div">
+            <label
+              for="type_input"
+              class="col-md-4 col-sm-6 col-form-label"
+              id="type_lable"
+              >Type of Contract</label
+            >
+            <div class="col-md-4 col-sm-6">
+              <select
+                class="form-select form-control required-field"
+                id="type_input"
+                name="type_input"
+                data-error="type_error"
+              >
+                <option value="">Select</option>
+                <option value="AMC">AMC</option>
+                <option value="AGAMC">AGAMC</option>
+                <option value="CMC">CMC</option>
+                <option value="Spare">Spare</option>
+              </select>
+              <div id="type_error" class="text-danger d-none fs-7">
+                Please select a type.
+              </div>
+            </div>
+          </div>
+
+          <!-- test start -->
+          <!-- <div class="form-group row" id="type_div">
+            <p id="test_widget">Test</p>
+            <p id="test_val"></p>
+          </div> -->
+          <!-- test end -->
+
+          <div id="based_on_type" class="d-flex flex-column gap-3">
+            <div class="form-group row" id="installed_customer_name_div">
+              <label
+                for="installed_customer_name_input"
+                class="col-md-4 col-sm-6 col-form-label"
+                id="installed_customer_name_lable"
+                >Installed Customer Name</label
+              >
+              <div class="col-md-4 col-sm-6">
+                <select
+                  class="form-select form-control"
+                  id="installed_customer_name_input"
+                  name="installed_customer_name_input"
+                  disabled
+                >
+                  <option value="">--</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row" id="installed_customer_code_div">
+              <label
+                for="installed_customer_code_input"
+                class="col-md-4 col-sm-6 col-form-label"
+                id="installed_customer_code_lable"
+                >Installed Customer Code</label
+              >
+              <div class="col-md-4 col-sm-6">
+                <select
+                  class="form-select form-control"
+                  id="installed_customer_code_input"
+                  name="installed_customer_code_input"
+                  disabled
+                >
+                  <option value="">--</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row" id="serial_no_div">
+              <label
+                for="serial_no_input"
+                class="col-md-4 col-sm-6 col-form-label"
+                id="serial_no_lable"
+                >Serial No</label
+              >
+              <div class="col-md-4 col-sm-6">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="serial_no_input"
+                  name="serial_no_input"
+                  aria-describedby="serialNo"
+                  disabled
+                />
+              </div>
+            </div>
+            <div class="form-group row" id="hq_name_div">
+              <label
+                for="hq_name_input"
+                class="col-md-4 col-sm-6 col-form-label"
+                id="hq_name_lable"
+                >HQ Name</label
+              >
+              <div class="col-md-4 col-sm-6">
+                <select
+                  class="form-select form-control"
+                  id="hq_name_input"
+                  name="hq_name_input"
+                  disabled
+                >
+                  <option value="">--</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row" id="product_name_lookup_div">
+              <label
+                for="product_name_lookup_input"
+                class="col-md-4 col-sm-6 col-form-label"
+                id="product_name_lookup_lable"
+                >Product Name</label
+              >
+              <div class="col-md-4 col-sm-6">
+                <select
+                  class="form-select form-control"
+                  id="product_name_lookup_input"
+                  name="product_name_lookup_input"
+                  disabled
+                >
+                  <option value="">--</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row" id="service_item_owner_div">
+              <label
+                for="service_item_owner_input"
+                class="col-md-4 col-sm-6 col-form-label"
+                id="service_item_owner_lable"
+                >Service Item Owner</label
+              >
+              <div class="col-md-4 col-sm-6">
+                <select
+                  class="form-select form-control"
+                  id="service_item_owner_input"
+                  name="service_item_owner_input"
+                  disabled
+                >
+                  <option value="">--</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row" id="warranty_type_div">
+              <label
+                for="warranty_type_input"
+                class="col-md-4 col-sm-6 col-form-label"
+                id="warranty_type_lable"
+                >Warranty Type</label
+              >
+              <div class="col-md-4 col-sm-6">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="warranty_type_input"
+                  name="warranty_type_input"
+                  aria-describedby="warrantyType"
+                  disabled
+                />
+              </div>
+            </div>
+            <div class="form-group row" id="status_div">
+              <label
+                for="status_input"
+                class="col-md-4 col-sm-6 col-form-label"
+                id="status_lable"
+                >IR Status</label
+              >
+              <div class="col-md-4 col-sm-6">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="status_input"
+                  name="status_input"
+                  aria-describedby="warrantyType"
+                  disabled
+                />
+              </div>
+            </div>
+            <div class="form-group row" id="previous_contract_end_date_div">
+              <label
+                for="previous_contract_end_date_input"
+                class="col-md-4 col-sm-6 col-form-label"
+                id="previous_contract_end_date_lable"
+                >Previous Contract End Date</label
+              >
+              <div class="col-md-4 col-sm-6">
+                <input
+                  type="date"
+                  class="form-control"
+                  id="previous_contract_end_date_input"
+                  name="previous_contract_end_date_input"
+                  aria-describedby="previousContractEndDate"
+                  disabled
+                />
+              </div>
+            </div>
+            <div class="form-group row" id="installation_date_div">
+              <label
+                for="installation_date_input"
+                class="col-md-4 col-sm-6 col-form-label"
+                id="installation_date_lable"
+                >Installation Date</label
+              >
+              <div class="col-md-4 col-sm-6">
+                <input
+                  type="date"
+                  class="form-control"
+                  id="installation_date_input"
+                  name="installation_date_input"
+                  aria-describedby="installedDate"
+                  disabled
+                />
+              </div>
+            </div>
+            <div class="form-group row" id="new_amc_contract_year_div">
+              <label
+                for="new_amc_contract_year_input"
+                class="col-md-4 col-sm-6 col-form-label"
+                id="new_amc_contract_year_lable"
+                >AMC/CMC/AGAMC Contract Year</label
+              >
+              <div class="col-md-4 col-sm-6">
+                <select
+                  class="form-select form-control required-field"
+                  id="new_amc_contract_year_input"
+                  name="new_amc_contract_year_input"
+                  data-error="new_amc_contract_year_input_error"
+                >
+                  <option value="1" selected>1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                </select>
+                <div
+                  id="new_amc_contract_year_input_error"
+                  class="text-danger d-none fs-7"
+                >
+                  Please select AMC/CMC/AGAMC contract year.
+                </div>
+              </div>
+            </div>
+            <div class="form-group row" id="amc_start_date_div">
+              <label
+                for="amc_start_date_input"
+                class="col-md-4 col-sm-6 col-form-label"
+                id="amc_start_date_lable"
+                >Contract Start Date</label
+              >
+              <div class="col-md-4 col-sm-6">
+                <input
+                  type="date"
+                  class="form-control required-field"
+                  id="amc_start_date_input"
+                  name="amc_start_date_input"
+                  aria-describedby="amcStartDate"
+                  data-error="amc_start_date_input_error"
+                  onchange="validateStartDate()"
+                  />
+                  <div
+                  id="amc_start_date_input_error"
+                  class="text-danger d-none fs-7"
+                  >
+                  Please select start date.
+                </div>
+              </div>
+            </div>
+            <div class="form-group row" id="amc_end_date_div">
+              <label
+              for="amc_end_date_input"
+              class="col-md-4 col-sm-6 col-form-label"
+              id="amc_end_date_lable"
+              >Contract End date</label
+              >
+              <div class="col-md-4 col-sm-6">
+                <input
+                type="date"
+                class="form-control required-field"
+                id="amc_end_date_input"
+                name="amc_end_date_input"
+                aria-describedby="amcEndDate"
+                data-error="amc_end_date_input_error"
+                onchange="validateEndDate()"
+                />
+                <div
+                  id="amc_end_date_input_error"
+                  class="text-danger d-none fs-7"
+                >
+                  Please select end date.
+                </div>
+              </div>
+            </div>
+            <div class="form-group row" id="pricing_div">
+              <label
+                for="pricing_input"
+                class="col-md-4 col-sm-6 col-form-label"
+                id="pricing_lable"
+                >Pricing</label
+              >
+              <div class="col-md-4 col-sm-6">
+                <input
+                  type="number"
+                  class="form-control"
+                  id="pricing_input"
+                  name="pricing_input"
+                  aria-describedby="pricingInput"
+                  data-error="pricing_input_error"
+                />
+                <div id="pricing_input_error" class="text-danger d-none fs-7">
+                  Please enter pricing.
+                </div>
+              </div>
+            </div>
+            <div class="form-group row" id="deviation_pricing_div">
+              <label
+                for="deviation_pricing_input"
+                class="col-md-4 col-sm-6 col-form-label"
+                id="deviation_pricing_lable"
+                >Deviation Pricing</label
+              >
+              <div class="col-md-4 col-sm-6">
+                <input
+                  type="number"
+                  class="form-control"
+                  id="deviation_pricing_input"
+                  name="deviation_pricing_input"
+                  aria-describedby="deviationPricingInput"
+                  data-error="deviation_pricing_input_error"
+                />
+                <div
+                  id="deviation_pricing_input_error"
+                  class="text-danger d-none fs-7"
+                >
+                  Please enter deviation price.
+                </div>
+              </div>
+            </div>
+            <!-- Form Field End -->
+
+            <!-- Spare starts here -->
+            <div class="w-100" id="spare_type">
+              <div
+                class="table-responsive"
+                style="min-height: 100px; overflow-y: auto"
+              >
+                <table class="table" id="spareTable">
+                  <thead id="spareTableHeader">
+                    <tr>
+                      <th scope="col">Product Name</th>
+                      <th scope="col">Product Code</th>
+                      <th scope="col">Unit Price</th>
+                      <th scope="col">Quantity</th>
+                      <!-- below field its renamed from "Amount" -->
+                      <th scope="col">Special Price</th>
+                      <th scope="col">Quoting Price</th>
+                    </tr>
+                  </thead>
+                  <tbody class="table-group-divider" id="spareTableBody">
+                    <!-- Rows will be populated here -->
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <td colspan="4" class="text-right">Total</td>
+                      <td id="totalAmount"></td>
+                      <td id="totalQuotingPrice"></td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <button
+                id="addRowToSpareBtn"
+                class="btn btn-primary"
+                type="button"
+              >
+                Add Row
+              </button>
+            </div>
+            <!-- Spare ends here -->
+
+            <!-- Buttons related to Main Forms STARTS HERE... -->
+            <div class="d-flex justify-content-center align-items-center gap-3">
+              <button
+                type="button"
+                class="btn btn-danger col-md-2 col-sm-4"
+                id="cancelFormBtn"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                class="btn btn-primary col-md-2 col-sm-4"
+                id="saveFormBtn"
+              >
+                Submit
+              </button>
+            </div>
+          </div>
+
+          <!-- Buttons related to Main Forms ENDS HERE... -->
+        </form>
+        <!-- Quotes form end -->
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div
+      class="modal fade h-auto"
+      id="noDataModal"
+      tabindex="-1"
+      aria-labelledby="noDataModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="noDataModalLabel">No Data Available</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            No data was found for the selected contract type.
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Script Links STARTS HERE... -->
+    <script src="./src/js/index.js"></script>
+    <script src="./src/js/fetch.js"></script>
+    <!-- Script Links ENDS HERE... -->
+  </body>
+</html>
+
+<!-- service item number -->
+<!-- <div class="form-group row" id="service_item_number_div">
+              <label
+                for="service_item_number_input"
+                class="col-md-4 col-sm-6 col-form-label"
+                id="service_item_number_lable"
+                >Service Item Number</label
+              >
+              <div class="col-md-4 col-sm-6">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="service_item_number_input"
+                  name="service_item_number_input"
+                  aria-describedby="serviceItemNumber"
+                  disabled
+                />
+              </div>
+            </div> -->
+
+<!-- Installation ID -->
+<!-- <div class="form-group row" id="installation_id_div">
+              <label
+                for="installation_id_input"
+                class="col-md-4 col-sm-6 col-form-label"
+                id="installation_id_lable"
+                >Installation ID</label
+              >
+              <div class="col-md-4 col-sm-6">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="installation_id_input"
+                  name="installation_id_input"
+                  aria-describedby="installationId"
+                  disabled
+                />
+              </div>
+            </div> -->
